@@ -6,7 +6,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sb
 
-from sklearn.datasets import load_diabetes # repurposing plotting code week 8 homework
+from sklearn.datasets import load_diabetes
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.decomposition import PCA
@@ -32,14 +32,14 @@ sb.heatmap(corr, mask=np.zeros_like(corr, dtype=np.bool), cmap=sb.diverging_pale
             square=True, ax=ax)
 
 ## main visualization plot
-# Y will be on z-axis
-# categorize by sex and colour code it
+
 
 ############# Dimensionality Reduction - PCA - to reduce redundancy among features ################
 X=data
 y=target
 
-pca = PCA(n_components=3, whiten=False)
+# run PCA with all features and generate explained variance plot to find the "sweet spot" for number of features to include
+pca = PCA()
 pca.fit(X)
 
 # explained variance plot
@@ -47,10 +47,9 @@ plt.plot(np.cumsum(pca.explained_variance_ratio_))
 plt.xlabel('number of components')
 plt.ylabel('cumulative explained variance')
 
-print(pca.components_)
+# print(pca.components_)
+# print explained variance of each PCA component
 print(pca.explained_variance_)
-
-# https://jakevdp.github.io/PythonDataScienceHandbook/05.09-principal-component-analysis.html
 
 ############# Regression #################
 # Split the data and target into train and test sets
