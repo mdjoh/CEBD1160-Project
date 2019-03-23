@@ -18,7 +18,6 @@ Your repository should include the following:
 
 ## Research Question
 
-A question that can be asked based on the diabetes dataset is:
 What is the predicted progression of diabetes given age, sex, BMI, blood pressure, S1, S2, S3, S4, S5, and S6 features?
 
 ### Abstract
