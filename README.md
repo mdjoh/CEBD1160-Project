@@ -36,6 +36,9 @@ Brief (no more than 1-2 paragraph) description about how you decided to approach
 - why you chose this method
 
 ### Results
+![Correlation Matrix](figures/diabetes_corr_matrix.png)
+
+![Cumulative Explained Variance Plot](figures/CumulativeExplainedVariance_plot.png)
 
 Brief (2 paragraph) description about your results. Include:
 
