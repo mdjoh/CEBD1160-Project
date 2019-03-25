@@ -31,7 +31,20 @@ corr = df.corr()
 sb.heatmap(corr, mask=np.zeros_like(corr, dtype=np.bool), cmap=sb.diverging_palette(100, 220, as_cmap=True),
             square=True, ax=ax)
 
+## generate basic scatter plots to visualize Y vs. dataset feature
+for feature in headers:
+    plt.scatter(df[feature], df[target_header])
+
+    plt.xlabel(feature)
+    plt.ylabel(target_header)
+
+    plt.savefig('scatter_Y_vs_' + xvar + '.png')
+    plt.clf()
+
 ## main visualization plot
+
+## drop categorical feature 'sex' in dataset
+norm_data = df.drop(columns='sex')
 
 
 ############# Dimensionality Reduction - PCA - to reduce redundancy among features ################
@@ -71,4 +84,22 @@ plt.scatter(expected, predicted)
 plt.xlabel('Features')
 plt.ylabel('Predicted ' + target_header)
 plt.savefig('LinearRegOutput.png')
+plt.clf()
+
+### Gradient Boosting Tree Regression ###
+clf = GradientBoostingRegressor()
+clf.fit(X_train, y_train)
+
+predicted = clf.predict(X_test)
+expected = y_test
+print("RMS: %s" % np.sqrt(np.mean((predicted - expected)**2)))
+
+# print the model score
+clf.score(X_test, y_test)
+
+# plot predicted vs expected
+plt.scatter(expected, predicted)
+plt.xlabel('Features')
+plt.ylabel('Predicted ' + target_header)
+plt.savefig('GradientRegOutput.png')
 plt.clf()

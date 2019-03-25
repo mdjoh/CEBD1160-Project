@@ -7,26 +7,26 @@
 -----
 
 ### Resources
-Your repository should include the following:
+This final project repository has the following:
 
-- Python script for your analysis
-- Results figure/saved file
-- Dockerfile for your experiment
-- runtime-instructions in a file named RUNME.md
+- Python script for the analysis: `final-project.py`
+- Results figures in: `figures/`
+- Dockerfile for the experiment: `Dockerfile`
+- runtime-instructions in a file: `RUNME.md`
 
 -----
 
 ## Research Question
 
-What is the predicted progression of diabetes given age, sex, BMI, blood pressure, S1, S2, S3, S4, S5, and S6 features?
+What is the predicted progression of diabetes given age, sex, BMI, blood pressure, S1, S2, S3, S4, S5, and S6 data?
 
 ### Abstract
 
-The diabetes dataset presents ten measured features to track the progression of diabetes for 442 subjects. The progression is also presented as a feature called 'Y'. The task at hand is to be able to predict the progression of diabetes (i.e. Y) by constructing a model using machine learning from the other features in the dataset. Python data manipulation, data visualization, and machine learning libraries (e.g. numpy, pandas, matplotlib, seaborn, scikit-learn) will be used to create the data model that would predict Y. A python script to construct the machine learning model from this dataset that would predict Y was written. Plots were made for exploratory purposes to visualize how the data were distributed and if any trends were apparent. Visualization was also used to determine which features are best to include in the model. Machine learning model creating functions in the scikit-learn library were used to create the 'Y' predicting model.
+The diabetes dataset presents ten measured features to track the progression of diabetes for 442 subjects. The progression is presented as a feature named 'Y'. The task at hand is to be able to predict Y and the research question can be answered by constructing a regression model using machine learning of the features in the dataset. Python data manipulation, data visualization, and machine learning libraries (e.g. numpy, pandas, matplotlib, seaborn, scikit-learn) will be used to create the data model that would predict Y. A python script to construct the machine learning model from this dataset that would predict Y was made. Plots were made for exploratory purposes to visualize how the data were distributed and if any trends were apparent. Visualization was also used to determine which features are best to include in the model. Machine learning model creating functions in the scikit-learn library were used to create the Y predicting model.
 
 ### Introduction
 
-The diabetes dataset consists of ten baseline variables-age, sex, body mass index, average blood pressure, and six blood serum measurements- that were obtained for each of 442 diabetes patients and the response of interest, a quantitative measure of disease progression one year after baseline ('Y') [1].
+The diabetes dataset consists of ten baseline variables-age, sex, body mass index, average blood pressure, and six blood serum measurements- that were obtained for each of 442 diabetes patients and the response of interest, a quantitative measure of disease progression one year after baseline (Y) [1].
 
 ### Methods
 
@@ -35,10 +35,14 @@ Brief (no more than 1-2 paragraph) description about how you decided to approach
 - pseudocode for this method (either created by you or cited from somewhere else)
 - why you chose this method
 
-### Results
-![Correlation Matrix](figures/diabetes_corr_matrix.png)
+Scatter plots were initially made to visualize how each feature related to Y. A hypothesis was that the features that appear visually to have a relationship with Y will be correlated with each other. These features would be a good predictor of Y and thus should be included in a regression model. To visualize the correlation between features and ascertain which features are best to include in a regression model, a correlation matrix was made.
+The use of principal component analysis (PCA) to reduce data dimensionality was explored in hopes of simplifying the regression model.
 
-![Cumulative Explained Variance Plot](figures/CumulativeExplainedVariance_plot.png)
+### Results
+![Correlation Matrix](./figures/diabetes_corr_matrix.png)
+
+![Cumulative Explained Variance Plot](./figures/CumulativeExplainedVariance_plot.png)
+
 
 Brief (2 paragraph) description about your results. Include:
 
