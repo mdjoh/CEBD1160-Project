@@ -10,7 +10,7 @@ determine minimum number of PCs needed to explain 95% of variance
 visualize principal components
 
 run a regression model (pick method based on how components look on a plot)
-k nearest regression because the data appears to be randomly distributed
+k nearest regression because the data appears to be randomly distributed and no strong correlations between the features and Y are apparent
 
 compare raw, raw_pca, std_pca model scores
 
