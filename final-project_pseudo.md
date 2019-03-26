@@ -1,8 +1,8 @@
 Convert np array to pd dataframe
 
-# Correlation matrix plotting
+# Visualization
 scatter plots of Y vs. features to see how data are distributed
-See which ones to include in regression model via PCA
+Normalize, stratify by sex 2D scatter plot (Y vs. normalized feature score)
 
 # Constructing model
 Do linear regression
