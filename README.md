@@ -54,7 +54,12 @@ Brief (2 paragraph) description about your results. Include:
 Brief (no more than 1-2 paragraph) description about what you did. Include:
 
 - interpretation of whether your method "solved" the problem
+Talk about model score and how it does the job but definitely can be better at predicting Y
+score value, RMSE value suggest the point above
+
 - suggested next step that could make it better.
+
+In the future, other regression techniques such as K-nearest regression, gradient boost regression, or polynomial regression can be used to improve the performance of the prediction model. These techniques may model the diabetes dataset better and improve the prediction of Y.
 
 ### References
 [1]. Adapted from https://scikit-learn.org/stable/datasets/index.html#diabetes-dataset
