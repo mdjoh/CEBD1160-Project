@@ -36,9 +36,11 @@ To build a valid regression model, all data needed to be on the same scale and t
 
 ### Results
 ![Correlation Matrix](./figures/diabetes_corr_matrix.png)
+
 From the correlation heat map, none of the features were strongly correlated with Y and reducing the number features to include in the linear regression model was difficult. PCA was used to reduce dataset dimensionality and aid in making the simplest prediction model possible. Reducing the dimensionality of the dataset was hypothesized to enable a simpler prediction model to be built. PCA was conducted to explain 90% of the variance in the original dataset. Thus, this process was believed to result in a simpler prediction model that would only sacrifice prediction ability to a slight degree. PCA results indicated three and six components were needed to explain 90% of the variance in the raw and standardized data respectively.
 
 ![Raw Cumulative Explained Variance Plot](./figures/RawExplainedVariance.png) ![Standardized Cumulative Explained Variance Plot](./figures/StdExplainedVariance.png)
+
 
 An example to visualize principal components is shown below:
 
