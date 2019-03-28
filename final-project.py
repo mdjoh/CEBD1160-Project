@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 from mpl_toolkits import mplot3d
 import seaborn as sb
 
-from plotly import tools
 import plotly as py
+from plotly import tools
 import plotly.graph_objs as go
 from plotly.offline import download_plotlyjs, plot, iplot
 
