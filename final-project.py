@@ -4,6 +4,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from mpl_toolkits import mplot3d
 import seaborn as sb
 
 from plotly import tools
@@ -194,11 +195,10 @@ rawdf = pd.DataFrame(rawdata)
 
 raw_nosex = np.delete(rawdata.values, [1,10], axis=1)
 
-# run PCA to determine the minimum number of components required to explain 95% of the variance of the dataset
+## generate cumulative explained variance curves
 pca_std = PCA().fit(nosex_data)
 pca_raw = PCA().fit(raw_nosex)
 
-# explained variance curves
 plt.plot(np.cumsum(pca_std.explained_variance_ratio_))
 plt.xlabel('Number of Components')
 plt.ylabel('Variance')
@@ -213,46 +213,72 @@ plt.title('Cumulative Explained Variance of Raw Data')
 plt.savefig('RawExplainedVariance.png')
 plt.clf()
 
-# print explained variance of each PCA
-stdExpVar = pca_std.explained_variance_ratio_
-rawExpVar = pca_raw.explained_variance_ratio_
+# split standardized and raw datasets into train and test sets
+std_train, std_test, stdy_train, stdy_test = train_test_split(nosex_data, target, test_size = 0.3, random_state = 0)
+raw_train, raw_test, rawy_train, rawy_test = train_test_split(raw_nosex, raw_target, test_size = 0.3, random_state = 0)
 
-############# Machine Learning #################
-# Split the data and target into train and test sets
-X_train, X_test, y_train, y_test = train_test_split(data, target)
+# run PCA to determine the minimum number of components required to explain 90% of the variance of the dataset
+pca_std = PCA(0.9).fit(std_train)
+pca_raw = PCA(0.9).fit(raw_train)
 
-### Linear Regression ###
-clf = LinearRegression()
-clf.fit(X_train, y_train)
+# return "PCAed" data
+trans_stdtrain = pca_std.transform(std_train)
+trans_stdtest = pca_std.transform(std_test)
+trans_rawtrain = pca_raw.transform(raw_train)
+trans_rawtest = pca_raw.transform(raw_test)
 
-predicted = clf.predict(X_test)
-expected = y_test
-print("RMS: %s" % np.sqrt(np.mean((predicted - expected)**2)))
+# min number of components required to explain 90% variance
+std_ncomponents = pca_std.n_components_ # returns: 6
+raw_ncomponents = pca_raw.n_components_ # returns: 3
 
-# print the model score
-clf.score(X_test, y_test)
+# raw data PC plot (example PCA visualization)
+fig = plt.figure()
+ax = plt.axes(projection='3d')
+xdata = trans_rawtrain[:,0] # PC 1
+ydata = trans_rawtrain[:,1] # PC 2
+zdata = trans_rawtrain[:,2] # PC 3
+ax.scatter3D(xdata,ydata,zdata)
 
-# plot predicted vs expected
-plt.scatter(expected, predicted)
-plt.xlabel('Features')
-plt.ylabel('Predicted ' + target_header)
-plt.savefig('LinearRegOutput.png')
+ax.set_xlabel('PC 1')
+ax.set_ylabel('PC 2')
+ax.set_zlabel('PC 3')
+ax.set_title('The Three Principal Components (PC) from Raw Data without Sex Feature')
+plt.savefig('PCAplot.png')
 plt.clf()
 
-### Gradient Boosting Tree Regression ###
-clf = GradientBoostingRegressor()
-clf.fit(X_train, y_train)
+############# Machine Learning - Linear Regression #################
+## linear regession using raw data
+raw_clf = LinearRegression().fit(raw_train, rawy_train)
 
-predicted = clf.predict(X_test)
-expected = y_test
+predicted = raw_clf.predict(raw_test)
+expected = rawy_test
 print("RMS: %s" % np.sqrt(np.mean((predicted - expected)**2)))
 
-# print the model score
-clf.score(X_test, y_test)
+raw_clf.score(raw_test, rawy_test)
 
-# plot predicted vs expected
-plt.scatter(expected, predicted)
-plt.xlabel('Features')
-plt.ylabel('Predicted ' + target_header)
-plt.savefig('GradientRegOutput.png')
-plt.clf()
+## linear regression using standardized data
+std_clf = LinearRegression().fit(std_train, stdy_train)
+
+predicted = std_clf.predict(std_test)
+expected = stdy_test
+print("RMS: %s" % np.sqrt(np.mean((predicted - expected)**2)))
+
+std_clf.score(std_test, stdy_test)
+
+## linear regression using PCA on raw data
+pcaraw_clf = LinearRegression().fit(trans_rawtrain, rawy_train)
+
+predicted = pcaraw_clf.predict(trans_rawtest)
+expected = rawy_test
+print("RMS: %s" % np.sqrt(np.mean((predicted - expected)**2)))
+
+pcaraw_clf.score(trans_rawtest, rawy_test)
+
+## linear regression using PCA on standardized data
+pcastd_clf = LinearRegression().fit(trans_stdtrain, stdy_train)
+
+predicted = pcastd_clf.predict(trans_stdtest)
+expected = stdy_test
+print("RMS: %s" % np.sqrt(np.mean((predicted - expected)**2)))
+
+pcastd_clf.score(trans_stdtest, stdy_test)
