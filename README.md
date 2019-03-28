@@ -42,7 +42,7 @@ From the correlation heat map, none of the features were strongly correlated wit
 ![Raw Cumulative Explained Variance Plot](./figures/RawExplainedVariance.png) ![Standardized Cumulative Explained Variance Plot](./figures/StdExplainedVariance.png)
 
 \
-*An example to visualize principal components is shown below:*
+An example to visualize principal components is shown below:
 
 ![PCA Plot](./figures/PCAplot.png)
 
