@@ -59,7 +59,7 @@ None of the models indicate a strong diabetes progression prediction ability fro
 
 ### Discussion
 
-Model performance and RMSE scores indicate that the diabetes progression prediction models made for this project can be improved. Linear regression was likely not the best regression technique to use for this dataset. To improve prediction ability in the future, other regression techniques can be explored to construct models that would yield better prediction performance. Multiple techniques can be explored and their performances evaluated to determine which one performs best at predicting diabetes disease progression. Techniques such as K-nearest regression, gradient boost regression, polynomial regression, or other sophisticated methods may model the diabetes dataset better and improve the prediction of Y.
+Model performance and RMSE scores indicate that the diabetes progression prediction models made for this project can be improved. Linear regression was likely not the best regression technique to use for this dataset. To improve prediction ability in the future, other regression techniques can be explored to construct models that would yield better prediction performance. Multiple techniques can be explored and their performances evaluated to determine which one performs best at predicting diabetes disease progression. Techniques such as k-nearest regression, gradient boost regression, polynomial regression, or other sophisticated methods may model the diabetes dataset better and improve the prediction of Y.
 
 ### References
 [1]. Adapted from https://scikit-learn.org/stable/datasets/index.html#diabetes-dataset

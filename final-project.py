@@ -10,7 +10,7 @@ import seaborn as sb
 import plotly as py
 from plotly import tools
 import plotly.graph_objs as go
-from plotly.offline import download_plotlyjs, plot, iplot
+from plotly.offline import download_plotlyjs, plot
 
 from sklearn.datasets import load_diabetes
 from sklearn.model_selection import train_test_split
@@ -34,8 +34,11 @@ df = pd.DataFrame(data=np.append(data, reshaped_target, axis=1), columns=headers
 ## correlation martrix
 f, ax = plt.subplots(figsize=(10, 8))
 corr = df.corr()
-sb.heatmap(corr, mask=np.zeros_like(corr, dtype=np.bool), cmap=sb.diverging_palette(100, 220, as_cmap=True),
+corr_matrix = sb.heatmap(corr, mask=np.zeros_like(corr, dtype=np.bool), cmap=sb.diverging_palette(100, 220, as_cmap=True),
             square=True, ax=ax)
+fig = corr_matrix.get_figure()
+fig.savefig('diabetes_corr_matrix.png')
+plt.clf()
 
 ## generate basic scatter plots to visualize Y vs. dataset feature
 import os
@@ -50,7 +53,7 @@ for feature in headers:
     plt.xlabel(feature)
     plt.ylabel(target_header)
 
-    plt.savefig(str(destination) + '/scatter_Y_vs_' + xvar + '.png')
+    plt.savefig(str(destination) + '/scatter_Y_vs_' + feature + '.png')
     plt.clf()
 
 ## Y vs All Features plot categorized by 'sex'
@@ -176,7 +179,7 @@ layout = go.Layout(
     title='Y vs. All Features Plot')
 
 fig = dict(data=plot_data, layout=layout)
-iplot(fig, filename='YvsAllFeatures')
+plot(fig, filename='YvsAllFeatures.html')
 # result: plot is not very informative; the data is randomly scattered
 
 ############# Dimensionality Reduction - PCA - to reduce redundancy among features ################
@@ -215,7 +218,7 @@ plt.clf()
 
 # split standardized and raw datasets into train and test sets
 std_train, std_test, stdy_train, stdy_test = train_test_split(nosex_data, target, test_size = 0.3, random_state = 0)
-raw_train, raw_test, rawy_train, rawy_test = train_test_split(raw_nosex, raw_target, test_size = 0.3, random_state = 0)
+raw_train, raw_test, rawy_train, rawy_test = train_test_split(raw_nosex, target, test_size = 0.3, random_state = 0)
 
 # run PCA to determine the minimum number of components required to explain 90% of the variance of the dataset
 pca_std = PCA(0.9).fit(std_train)
